@@ -1,0 +1,45 @@
+name: Feature request
+description: Suggest a tool, alias, keybinding, or change
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Duskshell aims to stay fast, so anything added to startup has to earn its
+        place. If your suggestion adds a module import, please read §11 of
+        [docs/GUIDE.md](../../blob/main/docs/GUIDE.md) first — several things are
+        deliberately installed but not imported.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What would you like added or changed
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: What problem does it solve
+      description: What are you doing today that this would replace?
+    validations:
+      required: true
+
+  - type: input
+    id: cost
+    attributes:
+      label: Startup cost, if known
+      description: "`Measure-Command { pwsh -NoLogo -NoProfile -Command 'Import-Module X' }`"
+      placeholder: ~120 ms
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: This does not require overriding a built-in PowerShell alias (`Get-Alias <name>` returns nothing)
+          required: false
+        - label: I checked that it isn't already covered by an existing tool in the setup
+          required: false

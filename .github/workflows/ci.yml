@@ -1,0 +1,73 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Lint and test
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Show PowerShell version
+        shell: pwsh
+        run: $PSVersionTable | Format-List
+
+      - name: Parse all scripts
+        shell: pwsh
+        run: |
+          $failed = $false
+          Get-ChildItem -Recurse -Filter *.ps1 | ForEach-Object {
+            $errors = $null
+            [System.Management.Automation.Language.Parser]::ParseFile($_.FullName, [ref]$null, [ref]$errors) | Out-Null
+            if ($errors) {
+              $failed = $true
+              Write-Host "::error file=$($_.FullName)::$($errors[0].Message)"
+            } else {
+              Write-Host "ok  $($_.Name)"
+            }
+          }
+          if ($failed) { exit 1 }
+
+      - name: Validate JSON configs
+        shell: pwsh
+        run: |
+          $failed = $false
+          Get-ChildItem config -Filter *.json | ForEach-Object {
+            try {
+              Get-Content $_.FullName -Raw | ConvertFrom-Json | Out-Null
+              Write-Host "ok  $($_.Name)"
+            } catch {
+              $failed = $true
+              Write-Host "::error file=$($_.FullName)::invalid JSON - $($_.Exception.Message)"
+            }
+          }
+          if ($failed) { exit 1 }
+
+      - name: PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          Install-Module PSScriptAnalyzer -Force -Scope CurrentUser -ErrorAction Stop
+          $r = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Error
+          if ($r) {
+            $r | Format-Table -AutoSize | Out-String | Write-Host
+            Write-Host "::error::PSScriptAnalyzer reported $($r.Count) error(s)"
+            exit 1
+          }
+          Write-Host "no errors"
+
+      # The merge is the only code path that can damage a real machine's
+      # config, so it is the one thing that must never regress.
+      - name: Windows Terminal merge safety tests
+        shell: pwsh
+        run: .\tests\Test-Merge.ps1
+
+      - name: Installer dry run
+        shell: pwsh
+        run: .\install.ps1 -WhatIf -SkipTools -SkipFont

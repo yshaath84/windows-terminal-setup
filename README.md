@@ -7,6 +7,7 @@
 A fast, beautiful Windows terminal — installed with one command,
 and measured rather than guessed.
 
+[![CI](https://github.com/yshaath84/duskshell/actions/workflows/ci.yml/badge.svg)](https://github.com/yshaath84/duskshell/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-7aa2f7?style=flat-square)](LICENSE)
 [![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-565f89?style=flat-square)](#requirements)
 [![PowerShell 7+](https://img.shields.io/badge/PowerShell-7%2B-9ece6a?style=flat-square)](https://github.com/PowerShell/PowerShell)

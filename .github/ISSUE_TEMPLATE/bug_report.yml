@@ -1,0 +1,68 @@
+name: Bug report
+description: Something installed wrong, rendered wrong, or broke
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Most reported problems have one of two causes, so please check these first:
+
+        - **Prompt shows boxes or missing icons** → the font isn't a Nerd Font.
+          Set the face to `JetBrainsMono NFM` in Windows Terminal settings.
+        - **A tool isn't found after install** → Windows Terminal caches the
+          environment it launched with. Close the whole application and reopen
+          it; a new tab is not enough.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you expected, and what you got instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Ran .\install.ps1
+        2. Reopened Windows Terminal
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: whatif
+    attributes:
+      label: Output of `.\install.ps1 -WhatIf`
+      description: This writes nothing and shows what the installer intends to do.
+      render: text
+    validations:
+      required: false
+
+  - type: input
+    id: psversion
+    attributes:
+      label: PowerShell version
+      description: "`$PSVersionTable.PSVersion`"
+      placeholder: 7.6.4
+    validations:
+      required: true
+
+  - type: input
+    id: windows
+    attributes:
+      label: Windows build
+      description: "`winver`, or `[Environment]::OSVersion.Version`"
+      placeholder: Windows 11 Pro 26100
+    validations:
+      required: true
+
+  - type: input
+    id: font
+    attributes:
+      label: Font set in Windows Terminal
+      placeholder: JetBrainsMono NFM
+    validations:
+      required: false
