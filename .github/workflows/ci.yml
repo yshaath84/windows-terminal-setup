@@ -53,7 +53,22 @@ jobs:
       - name: PSScriptAnalyzer
         shell: pwsh
         run: |
-          Install-Module PSScriptAnalyzer -Force -Scope CurrentUser -ErrorAction Stop
+          # PSGallery intermittently returns "no match found" on hosted runners,
+          # so use the preinstalled module when present and retry otherwise.
+          if (-not (Get-Module -ListAvailable PSScriptAnalyzer)) {
+            Set-PSRepository PSGallery -InstallationPolicy Trusted -ErrorAction SilentlyContinue
+            for ($i = 1; $i -le 3; $i++) {
+              try {
+                Install-Module PSScriptAnalyzer -Force -Scope CurrentUser -Repository PSGallery -ErrorAction Stop
+                break
+              } catch {
+                if ($i -eq 3) { throw }
+                Write-Host "attempt $i failed, retrying: $($_.Exception.Message)"
+                Start-Sleep -Seconds 15
+              }
+            }
+          }
+          Import-Module PSScriptAnalyzer
           $r = Invoke-ScriptAnalyzer -Path . -Recurse -Severity Error
           if ($r) {
             $r | Format-Table -AutoSize | Out-String | Write-Host
