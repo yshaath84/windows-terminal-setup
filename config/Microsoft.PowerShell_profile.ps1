@@ -12,6 +12,21 @@
 function Test-Tool([string]$Name) { $null -ne (Get-Command $Name -ErrorAction SilentlyContinue) }
 
 
+# ── PSReadLine edit mode — MUST come before oh-my-posh ───────────────────────
+# Set-PSReadLineOption -EditMode resets every key handler to that mode's
+# defaults. oh-my-posh's init binds Enter to OhMyPoshEnterKeyHandler, which is
+# what drives the transient prompt, so setting EditMode *after* init silently
+# throws that handler away — no error, the feature just stops working.
+#
+# Verified both ways:
+#   init then EditMode  ->  Enter = AcceptLine              (transient broken)
+#   EditMode then init  ->  Enter = OhMyPoshEnterKeyHandler (transient works)
+#
+# Do not move this below the Prompt section.
+Import-Module PSReadLine
+Set-PSReadLineOption -EditMode Windows
+
+
 # ── Prompt ───────────────────────────────────────────────────────────────────
 if (Test-Tool oh-my-posh) {
     $theme = "$HOME\.config\oh-my-posh\tokyonight.omp.json"
@@ -25,8 +40,6 @@ if (Test-Tool oh-my-posh) {
 
 
 # ── PSReadLine: history-aware autosuggestions ────────────────────────────────
-Import-Module PSReadLine
-Set-PSReadLineOption -EditMode Windows
 # Predictions need a real console; skip them when output is redirected
 # (CI, `pwsh -Command ... | ...`) or PSReadLine throws "The handle is invalid".
 if (-not [Console]::IsOutputRedirected) {

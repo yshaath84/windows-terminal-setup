@@ -83,6 +83,10 @@ jobs:
         shell: pwsh
         run: .\tests\Test-Merge.ps1
 
+      - name: Profile ordering and hygiene tests
+        shell: pwsh
+        run: .\tests\Test-Profile.ps1
+
       - name: Installer dry run
         shell: pwsh
         run: .\install.ps1 -WhatIf -SkipTools -SkipFont

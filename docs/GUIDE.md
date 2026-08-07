@@ -291,6 +291,30 @@ import PSFzf on first press, then hand off. `Set-PsFzfOption` rebinds the keys
 directly, so you pay the cost once per session and only if you use it.
 **First press feels slightly slow; every press after is instant.**
 
+### PSReadLine edit mode must be set BEFORE oh-my-posh init
+
+`Set-PSReadLineOption -EditMode` resets **every** key handler to that mode's
+defaults. oh-my-posh's init binds `Enter` to `OhMyPoshEnterKeyHandler`, and that
+handler is what redraws the finished prompt as the transient `❯`. Setting the
+edit mode afterwards throws the handler away — with no error. The shell starts
+normally and the transient prompt is simply gone.
+
+Measured both ways:
+
+| Profile order | `(Get-PSReadLineKeyHandler Enter).Function` | Transient prompt |
+|---|---|---|
+| init, then `-EditMode` | `AcceptLine` | broken |
+| `-EditMode`, then init | `OhMyPoshEnterKeyHandler` | works |
+
+Check it any time with:
+
+```powershell
+(Get-PSReadLineKeyHandler Enter).Function
+```
+
+Anything other than `OhMyPoshEnterKeyHandler` means something after the prompt
+setup clobbered the binding. `tests/Test-Profile.ps1` asserts the ordering.
+
 ### Predictions are guarded on redirected output
 
 `Set-PSReadLineOption -PredictionSource` throws *"The handle is invalid"* when
@@ -527,6 +551,7 @@ auditing PATH, since checking only `HKCU:\Environment` will report it missing.
 with no profile edit: `$env:EDITOR` is now `code -w`, and `ep` opens the profile
 in VS Code. `nvim` still wins over `code` if you ever install it (see the
 `$env:EDITOR` line in the profile's Environment section).
+
 
 
 
