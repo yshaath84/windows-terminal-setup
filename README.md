@@ -3,10 +3,8 @@
 A fast, complete Windows Terminal + PowerShell 7 environment. One command,
 sane defaults, and every performance claim measured rather than assumed.
 
-```
-╭─ ~  projects  api   main ≢  ~1  +1   26.5.1              19:14
-╰─❯
-```
+![A real session: eza listing with icons, git status, and the prompt showing
+branch, staged and modified counts, and the project's Node version](docs/screenshot.png)
 
 - **Tokyo Night** throughout — terminal scheme, prompt, tab bar, and `delta` diffs
 - **oh-my-posh** prompt with git status, runtime versions, exit-code colouring, and a transient prompt that collapses old lines
