@@ -1,6 +1,6 @@
-# Terminal Dev Guide
+# Duskshell — Reference Guide
 
-Reference manual for the setup installed by `install.ps1`.
+Everything Duskshell installs, why, and how to change it.
 Developed on Windows 11 Pro 26100 · PowerShell 7.6.4 · Windows Terminal
 
 ---
@@ -527,6 +527,7 @@ auditing PATH, since checking only `HKCU:\Environment` will report it missing.
 with no profile edit: `$env:EDITOR` is now `code -w`, and `ep` opens the profile
 in VS Code. `nvim` still wins over `code` if you ever install it (see the
 `$env:EDITOR` line in the profile's Environment section).
+
 
 
 
