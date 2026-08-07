@@ -1,0 +1,12 @@
+# Backups written by install.ps1 — never commit, they contain the user's own config
+*.bak-*
+
+# Test scratch
+tests/fake-settings.json
+tests/*.tmp
+
+# OS / editor
+Thumbs.db
+desktop.ini
+.vscode/
+.idea/

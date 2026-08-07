@@ -1,0 +1,208 @@
+{
+  "$help": "Portable subset of Windows Terminal settings. Merged by install.ps1 - never copied over settings.json wholesale.",
+  "copyFormatting": "none",
+  "copyOnSelect": false,
+  "theme": "tokyonight",
+  "useAcrylicInTabRow": true,
+  "showTabsInTitlebar": true,
+  "tabWidthMode": "equal",
+  "alwaysShowTabs": true,
+  "snapToGridOnResize": true,
+  "profiles": {
+    "defaults": {
+      "colorScheme": "Tokyo Night",
+      "font": {
+        "face": "JetBrainsMono NFM",
+        "size": 11,
+        "weight": "normal",
+        "features": {
+          "calt": 1,
+          "liga": 1
+        }
+      },
+      "antialiasingMode": "grayscale",
+      "cursorShape": "bar",
+      "useAcrylic": true,
+      "opacity": 92,
+      "padding": "12, 10, 12, 6",
+      "scrollbarState": "visible",
+      "historySize": 20000,
+      "snapOnInput": true,
+      "bellStyle": "none"
+    }
+  },
+  "schemes": [
+    {
+      "name": "Tokyo Night",
+      "background": "#1A1B26",
+      "foreground": "#A9B1D6",
+      "cursorColor": "#C0CAF5",
+      "selectionBackground": "#28344A",
+      "black": "#414868",
+      "red": "#F7768E",
+      "green": "#73DACA",
+      "yellow": "#E0AF68",
+      "blue": "#7AA2F7",
+      "purple": "#BB9AF7",
+      "cyan": "#7DCFFF",
+      "white": "#C0CAF5",
+      "brightBlack": "#565F89",
+      "brightRed": "#F7768E",
+      "brightGreen": "#73DACA",
+      "brightYellow": "#E0AF68",
+      "brightBlue": "#7AA2F7",
+      "brightPurple": "#BB9AF7",
+      "brightCyan": "#7DCFFF",
+      "brightWhite": "#C0CAF5"
+    }
+  ],
+  "themes": [
+    {
+      "name": "tokyonight",
+      "window": {
+        "applicationTheme": "dark",
+        "useMica": false
+      },
+      "tab": {
+        "background": "terminalBackground",
+        "unfocusedBackground": "#16161E",
+        "showCloseButton": "hover"
+      },
+      "tabRow": {
+        "background": "#16161E",
+        "unfocusedBackground": "#101014"
+      }
+    }
+  ],
+  "actions": [
+    {
+      "command": {
+        "action": "splitPane",
+        "split": "right",
+        "splitMode": "duplicate"
+      },
+      "id": "User.splitRight"
+    },
+    {
+      "command": {
+        "action": "splitPane",
+        "split": "down",
+        "splitMode": "duplicate"
+      },
+      "id": "User.splitDown"
+    },
+    {
+      "command": {
+        "action": "clearBuffer",
+        "clear": "all"
+      },
+      "id": "User.clearAll"
+    },
+    {
+      "command": {
+        "action": "resizePane",
+        "direction": "left"
+      },
+      "id": "User.resizeLeft"
+    },
+    {
+      "command": {
+        "action": "resizePane",
+        "direction": "right"
+      },
+      "id": "User.resizeRight"
+    },
+    {
+      "command": {
+        "action": "resizePane",
+        "direction": "up"
+      },
+      "id": "User.resizeUp"
+    },
+    {
+      "command": {
+        "action": "resizePane",
+        "direction": "down"
+      },
+      "id": "User.resizeDown"
+    }
+  ],
+  "keybindings": [
+    {
+      "id": "Terminal.CopyToClipboard",
+      "keys": "ctrl+c"
+    },
+    {
+      "id": "Terminal.PasteFromClipboard",
+      "keys": "ctrl+v"
+    },
+    {
+      "id": "Terminal.FindText",
+      "keys": "ctrl+shift+f"
+    },
+    {
+      "id": "Terminal.DuplicatePaneAuto",
+      "keys": "alt+shift+d"
+    },
+    {
+      "id": "User.splitRight",
+      "keys": "alt+shift+right"
+    },
+    {
+      "id": "User.splitDown",
+      "keys": "alt+shift+down"
+    },
+    {
+      "id": "Terminal.ClosePane",
+      "keys": "ctrl+shift+w"
+    },
+    {
+      "id": "Terminal.TogglePaneZoom",
+      "keys": "alt+shift+z"
+    },
+    {
+      "id": "Terminal.MoveFocusLeft",
+      "keys": "alt+left"
+    },
+    {
+      "id": "Terminal.MoveFocusRight",
+      "keys": "alt+right"
+    },
+    {
+      "id": "Terminal.MoveFocusUp",
+      "keys": "alt+up"
+    },
+    {
+      "id": "Terminal.MoveFocusDown",
+      "keys": "alt+down"
+    },
+    {
+      "id": "User.resizeLeft",
+      "keys": "ctrl+alt+left"
+    },
+    {
+      "id": "User.resizeRight",
+      "keys": "ctrl+alt+right"
+    },
+    {
+      "id": "User.resizeUp",
+      "keys": "ctrl+alt+up"
+    },
+    {
+      "id": "User.resizeDown",
+      "keys": "ctrl+alt+down"
+    },
+    {
+      "id": "User.clearAll",
+      "keys": "ctrl+shift+l"
+    },
+    {
+      "id": "Terminal.ToggleFocusMode",
+      "keys": "ctrl+shift+enter"
+    },
+    {
+      "id": "Terminal.OpenSettingsFile",
+      "keys": "ctrl+shift+,"
+    }
+  ]
+}
